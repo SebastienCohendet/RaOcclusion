@@ -123,8 +123,14 @@ void FonctionsOpenGL::resize (int p_width, int p_height)
 }
 
 /** Gestion du clavier.
- * Prise en charge de la taille de l'objet (+/- et réinit à 0)
- * et déplacements caméra/objet (pour débug principalement)
+ * Prise en charge de la taille de l'objet (=zoom) 
+ * et des déplacements de l'objet. <br/>
+ * Touches à utiliser : <br/>
+ * "+" pour zoomer l'objet <br/>
+ * "-" pour dézoomer l'objet <br/>
+ * "0" pour réinitialiser la taille de l'objet <br/>
+ * touches "zqsd" pour déplacer la voiture <br/>
+ * "1" pour réinitialiser la position de la voiture  
  */
 void FonctionsOpenGL::keyboard (unsigned char key, int x, int y) {
 
