@@ -1,16 +1,16 @@
-#include "FonctionsOpenGL.h"
+ï»¿#include "FonctionsOpenGL.h"
 
 /** Constructeur permettant le lancement de l'affichage d'OpenGL.
-Ce constructeur fait appel à Aruco et OpenCV pour détecter les markers sur la vidéo. 
+Ce constructeur fait appel Ã  Aruco et OpenCV pour dÃ©tecter les markers sur la vidÃ©o. 
 Il affiche ensuite les fichiers obj correctement. */
 FonctionsOpenGL::FonctionsOpenGL(string TheInputVideo, string TheBoardConfigFile, string TheIntrinsicFile, float TheMarkerSize) 
 {
-	/* Dépendance à Aruco et OpenCv */
-	//vidéo
+	/* DÃ©pendance Ã  Aruco et OpenCv */
+	//vidÃ©o
 	this->TheInputVideo=TheInputVideo;
 	//Fichier config du board
 	this->TheBoardConfigFile=TheBoardConfigFile;
-	//Caméra calibration info
+	//CamÃ©ra calibration info
 	this->TheIntrinsicFile=TheIntrinsicFile;
 	//taille des marqueurs
 	this->TheMarkerSize=TheMarkerSize;
@@ -18,22 +18,22 @@ FonctionsOpenGL::FonctionsOpenGL(string TheInputVideo, string TheBoardConfigFile
 	//Lecture des infos du board
 	TheBoardConfig.readFromFile(TheBoardConfigFile);
 
-	//Charge la vidéo donnée en paramètre
-	if (TheInputVideo=="live")  //Lecture depuis la première webcam sur l'ordinateur
+	//Charge la vidÃ©o donnÃ©e en paramÃ¨tre
+	if (TheInputVideo=="live")  //Lecture depuis la premiÃ¨re webcam sur l'ordinateur
 		TheVideoCapturer.open(0);
 	else TheVideoCapturer.open(TheInputVideo);
 	if (!TheVideoCapturer.isOpened())
 	{
-		cerr<<"Impossible de lire la vidéo"<<endl;
+		cerr<<"Impossible de lire la vidÃ©o"<<endl;
 	}
        
-	//Lecture de la première image
+	//Lecture de la premiÃ¨re image
 	TheVideoCapturer>>TheInputImage;
-	//Lit les paramètres de la caméra (passés en argument)
+	//Lit les paramÃ¨tres de la camÃ©ra (passÃ©s en argument)
 	TheCameraParams.readFromXMLFile(TheIntrinsicFile);
 	TheCameraParams.resize(TheInputImage.size());
 
-	//Taille de la fenetre adapté à la vidéo / webcam
+	//Taille de la fenetre adaptÃ© Ã  la vidÃ©o / webcam
 	screen_width = TheInputImage.size().width;
 	screen_height = TheInputImage.size().height;
 
@@ -48,18 +48,18 @@ FonctionsOpenGL::FonctionsOpenGL(string TheInputVideo, string TheBoardConfigFile
 /** Initialisation d'OpenGl (vue, etc.) */
 void FonctionsOpenGL::initialisation (std::string obj)
 {
-     glClearColor(0.0, 0.0, 0.0, 0.0); // Met le fond en noir si aucune vidéo n'est chargé (cas limite)
+     glClearColor(0.0, 0.0, 0.0, 0.0); // Met le fond en noir si aucune vidÃ©o n'est chargÃ© (cas limite)
 	
-    // Initialisation du viewport (fênetre d'affichage)
+    // Initialisation du viewport (fÃªnetre d'affichage)
     glViewport(0,0,screen_width,screen_height);  
 
     // Passage en mode Projection 
     glMatrixMode(GL_PROJECTION);
-    glLoadIdentity(); // Initialisation de la matrice de projection à l'identité
+    glLoadIdentity(); // Initialisation de la matrice de projection Ã  l'identitÃ©
     gluPerspective(45.0f,(GLfloat)screen_width/(GLfloat)screen_height,0.5f,100000000.0f);     
 
 
-	//Initialisation et activation des lumières (utile)
+	//Initialisation et activation des lumiÃ¨res (utile)
    	GLfloat light_ambient[]= { 0.1f, 0.1f, 0.1f, 0.1f };
 	GLfloat light_diffuse[]= { 1.0f, 1.0f, 1.0f, 0.0f };
 	GLfloat light_specular[]= { 1.0f, 1.0f, 1.0f, 0.0f };
@@ -71,7 +71,7 @@ void FonctionsOpenGL::initialisation (std::string obj)
     glEnable (GL_LIGHT1);
     glEnable (GL_LIGHTING);
 
-    //Initialisation et activitation des matériaux (utile ?)
+    //Initialisation et activitation des matÃ©riaux (utile ?)
 	GLfloat mat_ambient[]= { 0.5f, 0.5f, 0.0f, 0.0f };
 	GLfloat mat_diffuse[]= { 0.5f, 0.5f, 0.0f, 0.0f };
 	GLfloat mat_specular[]= { 1.0f, 1.0f, 1.0f, 0.0f };
@@ -82,7 +82,7 @@ void FonctionsOpenGL::initialisation (std::string obj)
     glMaterialfv (GL_FRONT, GL_POSITION, mat_shininess);
 
 	//Initialisations diverses d'OpenGl
-    glShadeModel(GL_SMOOTH); // Type des Shaders utilisés
+    glShadeModel(GL_SMOOTH); // Type des Shaders utilisÃ©s
 	glHint (GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST); // Correction de la perspective du texture mapping
     glEnable(GL_TEXTURE_2D); // Activation des textures
     glPolygonMode (GL_FRONT_AND_BACK, GL_FILL); // Les polygones sont "remplies"
@@ -99,32 +99,32 @@ void FonctionsOpenGL::initialisation (std::string obj)
 }
 
 
-/** Fonction appelée dès qu'un redimensionnement de la taille de la fenêtre est effectué.
+/** Fonction appelÃ©e dÃ¨s qu'un redimensionnement de la taille de la fenÃªtre est effectuÃ©.
  *
- * @param p_width : largeur (pixels) de la vue (fenêtre)
- * @param p_height : hauteur (pixels) de la vue (fenêtre)
+ * @param p_width : largeur (pixels) de la vue (fenÃªtre)
+ * @param p_height : hauteur (pixels) de la vue (fenÃªtre)
  */
 void FonctionsOpenGL::resize (int p_width, int p_height)
 {
 	if (screen_width==0 && screen_height==0) exit(0);
 
-	screen_width=p_width; // On obtient la nouvelle taille de la fenêtre : ici largeur
-	screen_height=p_height; // et là, hauteur
+	screen_width=p_width; // On obtient la nouvelle taille de la fenÃªtre : ici largeur
+	screen_height=p_height; // et lÃ , hauteur
 
 	glClear (GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); // On supprime les buffers de couleurs et de profondeurs pour la nouvelle image
-	glViewport(0,0,screen_width,screen_height); // Transformation de la fenêtre
+	glViewport(0,0,screen_width,screen_height); // Transformation de la fenÃªtre
 
 	glMatrixMode(GL_PROJECTION); // Transformation de la matrice
-	glLoadIdentity(); // On réinitialise la matrice de projection à l'identité
+	glLoadIdentity(); // On rÃ©initialise la matrice de projection Ã  l'identitÃ©
 	gluPerspective(45.0f,(GLfloat)screen_width/(GLfloat)screen_height,1.0f,100000000.0f);
 
-	glutPostRedisplay (); // On re-rend la scène
-	TheGlWindowSize=Size(screen_width,screen_height); //on sauvegarde la taille de la fenêtre pour la suite
+	glutPostRedisplay (); // On re-rend la scÃ¨ne
+	TheGlWindowSize=Size(screen_width,screen_height); //on sauvegarde la taille de la fenÃªtre pour la suite
 }
 
 /** Gestion du clavier.
- * Prise en charge de la taille de l'objet (+/- et réinit à 0)
- * et déplacements caméra/objet (pour débug principalement)
+ * Prise en charge de la taille de l'objet (+/- et rÃ©init Ã  0)
+ * et dÃ©placements camÃ©ra/objet (pour dÃ©bug principalement)
  */
 void FonctionsOpenGL::keyboard (unsigned char key, int x, int y) {
 
@@ -136,7 +136,7 @@ void FonctionsOpenGL::keyboard (unsigned char key, int x, int y) {
 	if (key=='0')
 		facteurZoom=1;
 
-	/* Flèches directionnelles */
+	/* FlÃ¨ches directionnelles */
 	if (key=='z') //avancer
 	{
 		zpos += TheMarkerSize;
@@ -145,7 +145,7 @@ void FonctionsOpenGL::keyboard (unsigned char key, int x, int y) {
 	{
 		zpos -= TheMarkerSize;
 	}
-    if (key=='q') //tourner à gauche (en avancant)
+    if (key=='q') //tourner Ã  gauche (en avancant)
     {
 		float distanceAZero = sqrt (xpos*xpos + zpos*zpos) / TheMarkerSize;
 		yrot += 40/distanceAZero; 
@@ -154,7 +154,7 @@ void FonctionsOpenGL::keyboard (unsigned char key, int x, int y) {
 		xpos += float(sin(yrotrad))*TheMarkerSize;
 		zpos += float(cos(yrotrad))*TheMarkerSize;
     }
-    if (key=='d') //tourner à droite (en avancant)
+    if (key=='d') //tourner Ã  droite (en avancant)
     {
 		float distanceAZero = sqrt (xpos*xpos + zpos*zpos) / TheMarkerSize;
 		yrot -= 20/distanceAZero; 
@@ -166,7 +166,7 @@ void FonctionsOpenGL::keyboard (unsigned char key, int x, int y) {
 	if (key=='1')  // reinitialiser position voiture
 		xpos = 0, ypos = 0, zpos = 0, yrot = 0;
 
-	/* Touche d'échappement (Echap = quitter) */
+	/* Touche d'Ã©chappement (Echap = quitter) */
     if (key==27)
     {
 		exit(0);
@@ -174,14 +174,14 @@ void FonctionsOpenGL::keyboard (unsigned char key, int x, int y) {
 }
 
 /** Support de la souris.
- * Mouvement et clic. Pas utilisé pour le moment
+ * Mouvement et clic. Pas utilisÃ© pour le moment
 */
 void FonctionsOpenGL::mouseMovement(int x, int y) {
 	
 }
 
 
-/** Génère l'image en cours 
+/** GÃ©nÃ¨re l'image en cours 
  * SUBROUTINE display(void)
  *
  * This is our main rendering subroutine, called each frame
@@ -189,12 +189,12 @@ void FonctionsOpenGL::mouseMovement(int x, int y) {
  */
 void FonctionsOpenGL::display(void)
 {
-    if (TheResizedImage.rows==0) //On attend que l'image soit bien réinitialisée avant de continuer
+    if (TheResizedImage.rows==0) //On attend que l'image soit bien rÃ©initialisÃ©e avant de continuer
         return;
-    ///C'est bon, image réinitialisée
+    ///C'est bon, image rÃ©initialisÃ©e
     glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
     ///On rend l'image dans le buffer
-    glMatrixMode(GL_MODELVIEW); //Positionnement de la caméra
+    glMatrixMode(GL_MODELVIEW); //Positionnement de la camÃ©ra
     glLoadIdentity();
 
     glMatrixMode(GL_PROJECTION);
@@ -204,11 +204,11 @@ void FonctionsOpenGL::display(void)
     glDisable(GL_TEXTURE_2D);
     glPixelZoom( 1, -1);
     glRasterPos3f( 0, TheGlWindowSize.height  - 0.5, -1.0f );
-    glDrawPixels ( TheGlWindowSize.width , TheGlWindowSize.height , GL_RGB , GL_UNSIGNED_BYTE , TheResizedImage.ptr(0) ); //rend la vidéo
+    glDrawPixels ( TheGlWindowSize.width , TheGlWindowSize.height , GL_RGB , GL_UNSIGNED_BYTE , TheResizedImage.ptr(0) ); //rend la vidÃ©o
 	
 	glAccum(GL_LOAD, 0.5);
 
-    ///On récupère la matrice de projection afin de faire nos rendus dans l'environnement comme si on filmait depuis la caméra
+    ///On rÃ©cupÃ¨re la matrice de projection afin de faire nos rendus dans l'environnement comme si on filmait depuis la camÃ©ra
     glMatrixMode(GL_PROJECTION);
     double proj_matrix[16];
 
@@ -217,7 +217,7 @@ void FonctionsOpenGL::display(void)
     glLoadIdentity();
     glLoadMatrixd(proj_matrix);
     glLineWidth(2);
-    //Pour chaque marqueur (démo plus)
+    //Pour chaque marqueur (dÃ©mo plus)
     double modelview_matrix[16];
 
 	// Afficher un cube au dessus de chaque marker
@@ -238,7 +238,7 @@ void FonctionsOpenGL::display(void)
         }
 	*/
 
-    //Si la planche est détecté avec assez de probabilités, on affiche l'objet
+    //Si la planche est dÃ©tectÃ© avec assez de probabilitÃ©s, on affiche l'objet
     if (TheBoardDetected.second>0.1) {
         TheBoardDetected.first.glGetModelViewMatrix(modelview_matrix);
         glMatrixMode(GL_MODELVIEW);
@@ -248,18 +248,18 @@ void FonctionsOpenGL::display(void)
         glTranslatef(0, TheMarkerSize/2,0); //On est pile sur le plan des markers
         glPushMatrix();
 		
-		glEnable(GL_DEPTH_TEST); // Cache les éléments normalement cachés : c'est le Z-Buffer
+		glEnable(GL_DEPTH_TEST); // Cache les Ã©lÃ©ments normalement cachÃ©s : c'est le Z-Buffer
 
 		if (objarray[0]->id_texture!=-1) 
 		{
 			glBindTexture(GL_TEXTURE_2D, objarray[0]->id_texture); // On active les textures
 			glEnable(GL_TEXTURE_2D); // Texture mapping ok
-			//printf("Textures chargées");
+			//printf("Textures chargÃ©es");
 		}
 		else
 			glDisable(GL_TEXTURE_2D); // Texture mapping OFF
 		
-		// Grossir/réduire les éléments affichés à l'écran (+ pour zoomer, - pour dézoomer, 1 pour revenir à la taille d'origine) 
+		// Grossir/rÃ©duire les Ã©lÃ©ments affichÃ©s Ã  l'Ã©cran (+ pour zoomer, - pour dÃ©zoomer, 1 pour revenir Ã  la taille d'origine) 
 		glScalef(facteurZoom, facteurZoom, facteurZoom);
 
 		glClear( GL_COLOR_BUFFER_BIT);
@@ -278,10 +278,10 @@ void FonctionsOpenGL::display(void)
 		objarray[0]->render();
 		glAccum(GL_ACCUM, 0.5);
 
-        // Afficher théière de taille TheMarkerSize
+        // Afficher thÃ©iÃ¨re de taille TheMarkerSize
 		// glutWireTeapot( TheMarkerSize );
 
-		glDisable(GL_DEPTH_TEST); // Cache les éléments normalement cachés : c'est le Z-Buffer
+		glDisable(GL_DEPTH_TEST); // Cache les Ã©lÃ©ments normalement cachÃ©s : c'est le Z-Buffer
        
 		glPopMatrix();
 		glAccum(GL_RETURN, 1);
@@ -293,7 +293,7 @@ void FonctionsOpenGL::display(void)
 
 }
 
-/** vIdle, détecte les marqueurs entre chaque itération **/
+/** vIdle, dÃ©tecte les marqueurs entre chaque itÃ©ration **/
 void FonctionsOpenGL::vIdle()
 {
     if (TheCaptureFlag) {

@@ -1,4 +1,4 @@
-#ifndef FONCTIONSOPENGL
+ï»¿#ifndef FONCTIONSOPENGL
 #define FONCTIONSOPENGL
 
 #include <stdio.h>
@@ -18,16 +18,16 @@ using namespace aruco;
 
 #include "objloader.h"
 
-/** Objet contenant toutes les fonctions utilisées pour l'affichage avec OpenGL. */
+/** Objet contenant toutes les fonctions utilisÃ©es pour l'affichage avec OpenGL. */
 class FonctionsOpenGL{
 	private:
-		/** Position de la voiture pour son déplacement dans la ville */
+		/** Position de la voiture pour son dÃ©placement dans la ville */
 		float xpos, ypos, zpos, yrot;
-		/** Contient les obj à charger/afficher */
+		/** Contient les obj Ã  charger/afficher */
 		object_type *objarray[2];   
 		/** Dimensions de la fenetre */
 		int screen_width,screen_height;
-		/** Variables nécessaires à la détection des marqueurs par Aruco */
+		/** Variables nÃ©cessaires Ã  la dÃ©tection des marqueurs par Aruco */
 		string TheInputVideo,TheIntrinsicFile,TheBoardConfigFile;
 		float TheMarkerSize;
 		VideoCapture TheVideoCapturer;
