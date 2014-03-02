@@ -130,11 +130,11 @@ void FonctionsOpenGL::keyboard (unsigned char key, int x, int y) {
 
 	/* Gestion du zoom */
 	if (key=='+')
-		facteurZoom=facteurZoom*2;
+		facteurZoom=facteurZoom*1.5f;
 	if (key=='-')
-		facteurZoom=facteurZoom/2;
+		facteurZoom=facteurZoom/1.5f;
 	if (key=='0')
-		facteurZoom=1;
+		facteurZoom=0.125f;
 
 	/* Flèches directionnelles */
 	if (key=='z') //avancer
@@ -189,97 +189,92 @@ void FonctionsOpenGL::mouseMovement(int x, int y) {
  */
 void FonctionsOpenGL::display(void)
 {
-   glDisable(GL_LIGHTING);
+    glDisable(GL_LIGHTING);
    
      
     if (TheResizedImage.rows==0) //On attend que l'image soit bien réinitialisée avant de continuer
         return;
-    ///C'est bon, image reinitialisee
+    // C'est bon, image reinitialisee
     glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
    
-   // Activation Z-Buffer
-   glDisable(GL_DEPTH_TEST);
+    // Déactivation Z-Buffer pour l'affichage de la video (en arrière plan)
+    glDisable(GL_DEPTH_TEST);
    
-    ///On rend l'image dans le buffer
+    // On rend l'image (de la video) dans le buffer
     glMatrixMode(GL_MODELVIEW); //Positionnement de la camera
     glLoadIdentity();
-    glPushMatrix();
-   
+    glPushMatrix(); 
+
     glMatrixMode(GL_PROJECTION);
     glPushMatrix();
-    glLoadIdentity();
-	 glOrtho(0, TheGlWindowSize.width, 0, TheGlWindowSize.height, -1.0, 5.0);
-    glViewport(0, 0, TheGlWindowSize.width , TheGlWindowSize.height);
-    glDisable(GL_TEXTURE_2D);
-    glPixelZoom( 1, -1);
-    glRasterPos3f( 0, TheGlWindowSize.height  - 0.5, -1.0f );
-    glDrawPixels ( TheGlWindowSize.width , TheGlWindowSize.height , GL_RGB , GL_UNSIGNED_BYTE , TheResizedImage.ptr(0) ); //rend la vidéo
-	
-   glPopMatrix();
+		glLoadIdentity();
+		glOrtho(0, TheGlWindowSize.width, 0, TheGlWindowSize.height, -1.0, 5.0);
+		glViewport(0, 0, TheGlWindowSize.width , TheGlWindowSize.height);
+		glDisable(GL_TEXTURE_2D);
+		glPixelZoom( 1, -1);
+		glRasterPos3f( 0, TheGlWindowSize.height  - 0.5, -1.0f );
+		glDrawPixels ( TheGlWindowSize.width , TheGlWindowSize.height , GL_RGB , GL_UNSIGNED_BYTE , TheResizedImage.ptr(0) ); //rend la vidéo
+    glPopMatrix();
    
-   // Activation Z-Buffer
-   glEnable(GL_DEPTH_TEST);
+    // Ré-Activation Z-Buffer pour occlusion entre éléments virtuels
+    glEnable(GL_DEPTH_TEST);
    
-    ///On récupère la matrice de projection afin de faire nos rendus dans l'environnement comme si on filmait depuis la caméra
+    // On récupère la matrice de projection afin de faire nos rendus dans l'environnement comme si on filmait depuis la caméra
     glMatrixMode(GL_PROJECTION);
     glPushMatrix();
-    double proj_matrix[16];
+		glLoadIdentity();
+		double proj_matrix[16];
+		TheCameraParams.glGetProjectionMatrix(TheInputImage.size(),TheGlWindowSize,proj_matrix,0.05,10); 
+		glLoadMatrixd(proj_matrix);
+		glLineWidth(2);
 
-    TheCameraParams.glGetProjectionMatrix(TheInputImage.size(),TheGlWindowSize,proj_matrix,0.05,facteurZoom*10);
-	
-    glLoadIdentity();
-    glLoadMatrixd(proj_matrix);
-    glLineWidth(2);
-    //Pour chaque marqueur (démo plus)
-    double modelview_matrix[16];
+		// Matrice utilisee pour chaque marqueur (démo plus)
+		double modelview_matrix[16];
 
-	// Afficher un cube au dessus de chaque marker
-   /*
-	for (unsigned int m=0;m<TheMarkers.size();m++)
-        {
-            TheMarkers[m].glGetModelViewMatrix(modelview_matrix);
-            glMatrixMode(GL_MODELVIEW);
-           
-            glLoadIdentity();
-            glLoadMatrixd(modelview_matrix);
-    // 		axis(TheMarkerSize);
-            glColor3f(1,0.4,0.4);
-            glTranslatef(0, TheMarkerSize/2,0);
-           
-            glutWireCube( TheMarkerSize );
+		// Afficher un cube au dessus de chaque marker
+		/*
+		for (unsigned int m=0;m<TheMarkers.size();m++)
+			{
+				TheMarkers[m].glGetModelViewMatrix(modelview_matrix);
+				glMatrixMode(GL_MODELVIEW);
+				glLoadIdentity();
+				glLoadMatrixd(modelview_matrix);
+     			axis(TheMarkerSize);
+				glColor3f(1,0.4,0.4);
+				glTranslatef(0, TheMarkerSize/2,0);
+				glutWireCube( TheMarkerSize );
+			}
+		*/
 
-        }
-	*/
-
-    //Si la planche est detectee avec assez de probabilites, on affiche l'objet
-    if (TheBoardDetected.second>0.1) {
-        //TheBoardDetected.first.glGetModelViewMatrix(modelview_matrix);
-       TheMarkers[0].glGetModelViewMatrix(modelview_matrix);
-        glMatrixMode(GL_MODELVIEW);
-        glPushMatrix();
-        glLoadIdentity();
-        glLoadMatrixd(modelview_matrix);
-        glColor3f(0,1,0);
-        glTranslatef(0, TheMarkerSize/2,0); //On est pile sur le plan des markers
+		//Si la planche est detectee avec assez de probabilites, on affiche l'objet
+		if (TheBoardDetected.second>0.1) {
+			TheBoardDetected.first.glGetModelViewMatrix(modelview_matrix);
+			//TheMarkers[0].glGetModelViewMatrix(modelview_matrix);
+			glMatrixMode(GL_MODELVIEW);
+			glPushMatrix();
+				glLoadIdentity();
+				glLoadMatrixd(modelview_matrix);
+				glColor3f(0,1,0);
+				glTranslatef(0, TheMarkerSize/2,0); // on est exactement sur le plan des markers
        
-
-        // Desactivation du color buffer pour dessiner le cube virtuel
-        glColorMask(GL_FALSE,GL_FALSE,GL_FALSE,GL_FALSE);
-		
-        displayVirtualHiddenWorld();
+				// Desactivation du color buffer et "dessiner" le monde virtuel caché
+				glColorMask(GL_FALSE,GL_FALSE,GL_FALSE,GL_FALSE);
+				glPushMatrix();
+				displayVirtualHiddenWorld();
+				glPopMatrix();
    
-        // Reactivation du color buffer pour dessiner le cube virtuel
-        glColorMask(GL_TRUE,GL_TRUE,GL_TRUE,GL_TRUE);
+				// Reactivation du color buffer et dessiner l'objet virtuel
+				glColorMask(GL_TRUE,GL_TRUE,GL_TRUE,GL_TRUE);
+				glPushMatrix();
+				displayVirtualWorld();
+				glPopMatrix();
        
-        displayVirtualWorld();
-       
-       glPopMatrix();
-       
-    }
+			glPopMatrix();
+		}
 
    glPopMatrix(); // from the GL PROJECTION
 
-    glutSwapBuffers();
+   glutSwapBuffers();
 
 
 }
@@ -320,8 +315,9 @@ int FonctionsOpenGL::getHeight() {
 
 void FonctionsOpenGL::displayVirtualHiddenWorld()
 {
-   // Grossir/réduire les éléments affichés à l'écran (+ pour zoomer, - pour dézoomer, 1 pour revenir à la taille d'origine)
-   glScalef(facteurZoom, facteurZoom, facteurZoom);
+   // Modifier dimension monde virtuel caché
+   float ratio = 0.65f;
+   glScalef(ratio, ratio, ratio);
    
    // Dessin du cube
    glutSolidCube(TheMarkerSize*2);
@@ -329,9 +325,7 @@ void FonctionsOpenGL::displayVirtualHiddenWorld()
 
 void FonctionsOpenGL::displayVirtualWorld()
 {
-   glutWireCube(TheMarkerSize*2);
-   
-   // Affichage objet
+    // Affichage objet
     if (objarray[0]->id_texture!=-1)
     {
     glBindTexture(GL_TEXTURE_2D, objarray[0]->id_texture); // On active les textures
@@ -346,7 +340,8 @@ void FonctionsOpenGL::displayVirtualWorld()
    
    // Translation de la voiture dans le plan (xOz)
    glTranslated(xpos,0.0f,zpos);
-   
+
+   // Grossir/réduire les éléments affichés à l'écran (+ pour zoomer, - pour dézoomer, 1 pour revenir à la taille d'origine)
    glScalef(facteurZoom, facteurZoom, facteurZoom);
    
    // Affichage de la voiture
