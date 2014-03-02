@@ -123,9 +123,14 @@ void FonctionsOpenGL::resize (int p_width, int p_height)
 }
 
 /** Gestion du clavier.
- * Prise en charge de la taille de l'objet (+/- et réinit à 0)
- * et déplacements caméra/objet (pour débug principalement)
- */
+ Prise en charge de la taille de l'objet (=zoom) et des déplacements de l'objet. <br/>
+ Touches à utiliser : <br/>
+ "+" pour zoomer l'objet <br/>
+ "-" pour dézoomer l'objet <br/>
+ "0" pour réinitialiser la taille de l'objet <br/>
+ touches "zqsd" pour déplacer la voiture <br/>
+ "1" pour réinitialiser la position de la voiture  
+*/
 void FonctionsOpenGL::keyboard (unsigned char key, int x, int y) {
 
 	/* Gestion du zoom */
@@ -139,29 +144,23 @@ void FonctionsOpenGL::keyboard (unsigned char key, int x, int y) {
 	/* Flèches directionnelles */
 	if (key=='z') //avancer
 	{
-		zpos += TheMarkerSize;
+		float yrotrad = (yrot / 180 * 3.141592654f);
+		zpos += TheMarkerSize/2 * cos(yrotrad);
+		xpos += TheMarkerSize/2 * sin(yrotrad);
 	}
 	if (key=='s') //reculer
 	{
-		zpos -= TheMarkerSize;
+		float yrotrad = (yrot / 180 * 3.141592654f);
+		zpos -= TheMarkerSize/2 * cos(yrotrad);
+		xpos -= TheMarkerSize/2 * sin(yrotrad);
 	}
-    if (key=='q') //tourner à gauche (en avancant)
+    if (key=='q') //tourner à gauche
     {
-		float distanceAZero = sqrt (xpos*xpos + zpos*zpos) / TheMarkerSize;
-		yrot += 40/distanceAZero; 
-		
-		float yrotrad = (yrot / 180 * 3.141592654f);
-		xpos += float(sin(yrotrad))*TheMarkerSize;
-		zpos += float(cos(yrotrad))*TheMarkerSize;
+		yrot += 20; 
     }
-    if (key=='d') //tourner à droite (en avancant)
+    if (key=='d') //tourner à droite
     {
-		float distanceAZero = sqrt (xpos*xpos + zpos*zpos) / TheMarkerSize;
-		yrot -= 20/distanceAZero; 
-
-		float yrotrad = (yrot / 180 * 3.141592654f);
-		xpos -= float(sin(yrotrad))*TheMarkerSize;
-		zpos += float(cos(yrotrad))*TheMarkerSize;
+		yrot -= 20; 
     }
 	if (key=='1')  // reinitialiser position voiture
 		xpos = 0, ypos = 0, zpos = 0, yrot = 0;
@@ -328,18 +327,17 @@ void FonctionsOpenGL::displayVirtualWorld()
     // Affichage objet
     if (objarray[0]->id_texture!=-1)
     {
-    glBindTexture(GL_TEXTURE_2D, objarray[0]->id_texture); // On active les textures
-    glEnable(GL_TEXTURE_2D); // Texture mapping ok
-    //printf("Textures chargées");
+		glBindTexture(GL_TEXTURE_2D, objarray[0]->id_texture); // On active les textures
+		glEnable(GL_TEXTURE_2D); // Texture mapping ok
     }
     else
-    glDisable(GL_TEXTURE_2D); // Texture mapping OFF
-   
-   // Rotation de la voiture dans le plan (xOz)
-   glRotatef(yrot,0.0,1.0,0.0);
-   
+		glDisable(GL_TEXTURE_2D); // Texture mapping OFF
+     
    // Translation de la voiture dans le plan (xOz)
    glTranslated(xpos,0.0f,zpos);
+  
+   // Rotation de la voiture dans le plan (xOz)
+   glRotatef(yrot,0.0,1.0,0.0);
 
    // Grossir/réduire les éléments affichés à l'écran (+ pour zoomer, - pour dézoomer, 1 pour revenir à la taille d'origine)
    glScalef(facteurZoom, facteurZoom, facteurZoom);
@@ -347,7 +345,6 @@ void FonctionsOpenGL::displayVirtualWorld()
    // Affichage de la voiture
    glColor3f(0,0,1);
    objarray[0]->render();
-   
 
 }
 
