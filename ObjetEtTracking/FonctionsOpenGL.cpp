@@ -227,18 +227,17 @@ void FonctionsOpenGL::display(void)
 		double modelview_matrix[16];
 
 		// Afficher un cube au dessus de chaque marker
-		/*
+		/* 
 		for (unsigned int m=0;m<TheMarkers.size();m++)
-			{
-				TheMarkers[m].glGetModelViewMatrix(modelview_matrix);
-				glMatrixMode(GL_MODELVIEW);
-				glLoadIdentity();
-				glLoadMatrixd(modelview_matrix);
-     			axis(TheMarkerSize);
-				glColor3f(1,0.4,0.4);
-				glTranslatef(0, TheMarkerSize/2,0);
-				glutWireCube( TheMarkerSize );
-			}
+		{
+			TheMarkers[m].glGetModelViewMatrix(modelview_matrix);
+			glMatrixMode(GL_MODELVIEW);
+			glLoadIdentity();
+			glLoadMatrixd(modelview_matrix);
+			glColor3f(1,0.4,0.4);
+			glTranslatef(0, TheMarkerSize/2,0);
+			glutWireCube( TheMarkerSize );
+		}
 		*/
 
 		//Si la planche est detectee avec assez de probabilites, on affiche l'objet
@@ -252,10 +251,10 @@ void FonctionsOpenGL::display(void)
 				glColor3f(0,1,0);
 				glTranslatef(0, TheMarkerSize/2,0); // on est exactement sur le plan des markers
        
-				// Desactivation du color buffer et "dessiner" le monde virtuel caché
+				// Desactivation du color buffer et "dessiner" le monde virtuel caché = objet réel virtualisé
 				glColorMask(GL_FALSE,GL_FALSE,GL_FALSE,GL_FALSE);
 				glPushMatrix();
-				displayVirtualHiddenWorld();
+				// displayVirtualHiddenWorld();
 				glPopMatrix();
    
 				// Reactivation du color buffer et dessiner l'objet virtuel
