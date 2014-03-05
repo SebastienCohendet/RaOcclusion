@@ -125,21 +125,18 @@ void FonctionsOpenGL::resize (int p_width, int p_height)
 /** Gestion du clavier.
  Prise en charge de la taille de l'objet (=zoom) et des déplacements de l'objet. <br/>
  Touches à utiliser : <br/>
- "+" pour zoomer l'objet <br/>
- "-" pour dézoomer l'objet <br/>
- "0" pour réinitialiser la taille de l'objet <br/>
- touches "zqsd" pour déplacer la voiture <br/>
- "1" pour réinitialiser la position de la voiture  
+ "Page suivante" pour zoomer l'objet <br/>
+ "Page précédente" pour dézoomer l'objet <br/>
+ Flèches directionnelles pour déplacer la voiture <br/>
+ "Fin" pour réinitialiser la taille & la position de l'objet <br/>
 */
 void FonctionsOpenGL::keyboard (int key, int x, int y) {
 
 	/* Gestion du zoom */
-	if (key=='+')
+	if (key==GLUT_KEY_PAGE_UP)
 		facteurZoom=facteurZoom*1.5f;
-	if (key=='-')
+	if (key==GLUT_KEY_PAGE_DOWN)
 		facteurZoom=facteurZoom/1.5f;
-	if (key=='0')
-		facteurZoom=0.125f;
 
 	/* Flèches directionnelles */
 	if (key==GLUT_KEY_UP) //avancer
@@ -162,13 +159,12 @@ void FonctionsOpenGL::keyboard (int key, int x, int y) {
     {
 		yrot -= 20; 
     }
-	if (key=='1')  // reinitialiser position voiture
-		xpos = 0, ypos = 0, zpos = 0, yrot = 0;
-
-	/* Touche d'échappement (Echap = quitter) */
-    if (key==27)
+	
+	/* Reinitialiser position/taille voiture */
+    if (key==GLUT_KEY_END)
     {
-		exit(0);
+		facteurZoom=0.125f;
+		xpos = 0, ypos = 0, zpos = 0, yrot = 0;
     }
 }
 
