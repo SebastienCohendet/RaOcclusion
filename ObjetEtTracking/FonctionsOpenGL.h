@@ -54,7 +54,7 @@ class FonctionsOpenGL{
 		FonctionsOpenGL(string TheInputVideo, string TheBoardConfigFile, string TheIntrinsicFile, float TheMarkerSize);
 		void initialisation (std::string obj);
 		void resize (int p_width, int p_height);
-		void keyboard (unsigned char key, int x, int y);
+		void keyboard (int key, int x, int y);
 		void mouseMovement(int x, int y);
 		void display(void);
 		void vIdle();

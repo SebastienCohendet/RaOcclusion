@@ -131,7 +131,7 @@ void FonctionsOpenGL::resize (int p_width, int p_height)
  touches "zqsd" pour déplacer la voiture <br/>
  "1" pour réinitialiser la position de la voiture  
 */
-void FonctionsOpenGL::keyboard (unsigned char key, int x, int y) {
+void FonctionsOpenGL::keyboard (int key, int x, int y) {
 
 	/* Gestion du zoom */
 	if (key=='+')
@@ -142,23 +142,23 @@ void FonctionsOpenGL::keyboard (unsigned char key, int x, int y) {
 		facteurZoom=0.125f;
 
 	/* Flèches directionnelles */
-	if (key=='z') //avancer
+	if (key==GLUT_KEY_UP) //avancer
 	{
 		float yrotrad = (yrot / 180 * 3.141592654f);
 		zpos += TheMarkerSize/2 * cos(yrotrad);
 		xpos += TheMarkerSize/2 * sin(yrotrad);
 	}
-	if (key=='s') //reculer
+	if (key==GLUT_KEY_DOWN) //reculer
 	{
 		float yrotrad = (yrot / 180 * 3.141592654f);
 		zpos -= TheMarkerSize/2 * cos(yrotrad);
 		xpos -= TheMarkerSize/2 * sin(yrotrad);
 	}
-    if (key=='q') //tourner à gauche
+    if (key==GLUT_KEY_LEFT) //tourner à gauche
     {
 		yrot += 20; 
     }
-    if (key=='d') //tourner à droite
+    if (key==GLUT_KEY_RIGHT) //tourner à droite
     {
 		yrot -= 20; 
     }

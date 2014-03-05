@@ -9,7 +9,7 @@ void resize (int p_width, int p_height)
 {
 	openGL->resize(p_width, p_height);
 }
-void keyboard (unsigned char key, int x, int y) 
+void keyboard (int key, int x, int y) 
 {
 	openGL->keyboard(key, x, y);
 }
@@ -58,7 +58,7 @@ int main(int argc, char **argv)
 
 	// Prise en charge du clavier et souris 
 	//glutPassiveMotionFunc(mouseMovement); 
-	glutKeyboardFunc (keyboard); 
+	glutSpecialFunc (keyboard); 
 
 	//initialisation de l'obj
 	openGL->initialisation(argv[1]);
