@@ -30,7 +30,7 @@ class FonctionsOpenGL{
 		/** Position de la voiture pour son deplacement dans la ville */
 		float xpos, ypos, zpos, yrot;
 		/** Contient les obj a charger/afficher */
-		object_type *objarray[2];   
+		object_type *objarray[6];   
 		/** Dimensions de la fenetre */
 		int screen_width,screen_height;
 		/** Variables necessaires a la detection des marqueurs par Aruco */

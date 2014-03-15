@@ -46,7 +46,7 @@ FonctionsOpenGL::FonctionsOpenGL(string TheInputVideo, string TheBoardConfigFile
 }
 
 /** Initialisation d'OpenGl (vue, etc.) */
-void FonctionsOpenGL::initialisation (std::string obj)
+void FonctionsOpenGL::initialisation (std::string objs)
 {
      glClearColor(0.0, 0.0, 0.0, 0.0); // Met le fond en noir si aucune vidéo n'est chargé (cas limite)
 	
@@ -87,14 +87,23 @@ void FonctionsOpenGL::initialisation (std::string obj)
     glEnable(GL_TEXTURE_2D); // Activation des textures
     glPolygonMode (GL_FRONT_AND_BACK, GL_FILL); // Les polygones sont "remplies"
 	glEnable(GL_CULL_FACE); // Activation du back face culling
-   
+
 	//Chargement .obj
-	for (int i=0;i<1;i++)
+	string ligne;
+	ifstream fichier (objs);
+	int i=0;
+	if (fichier.is_open())
 	{
-		objarray[i] = new (object_type);
-		objarray[i]->objloader(obj);
-		//objarray[i]->objdatadisplay();      
+		while ( getline (fichier,ligne) )
+		{
+			objarray[i] = new (object_type);
+			objarray[i]->objloader(ligne);
+			i++;
+		}
+		fichier.close();
 	}
+
+	else cout << "Lecture impossible du fichier d'objets"; 
 
 }
 
@@ -164,9 +173,9 @@ void FonctionsOpenGL::keyboard (int key, int x, int y) {
     if (key==GLUT_KEY_END)
     {
 		printf("facteurZoom: %f \n",facteurZoom);
-		printf("xpos: %d \n",xpos);
-		printf("zpos: %d \n",zpos);
-		printf("yrot: %d \n",yrot);
+		printf("xpos: %f \n",xpos);
+		printf("zpos: %f \n",zpos);
+		printf("yrot: %f\n",yrot);
 		facteurZoom=0.125f;
 		xpos = 0, ypos = 0, zpos = 0, yrot = 0;
     }
@@ -249,6 +258,7 @@ void FonctionsOpenGL::display(void)
 			TheBoardDetected.first.glGetModelViewMatrix(modelview_matrix);
 			//TheMarkers[0].glGetModelViewMatrix(modelview_matrix);
 			glMatrixMode(GL_MODELVIEW);
+
 			glPushMatrix();
 				glLoadIdentity();
 				glLoadMatrixd(modelview_matrix);
@@ -331,20 +341,56 @@ void FonctionsOpenGL::displayVirtualWorld()
     }
     else
 		glDisable(GL_TEXTURE_2D); // Texture mapping OFF
-     
-   // Translation de la voiture dans le plan (xOz)
-   glTranslated(xpos,0.0f,zpos);
-  
-   // Rotation de la voiture dans le plan (xOz)
-   glRotatef(yrot,0.0,1.0,0.0);
 
-   // Grossir/réduire les éléments affichés à l'écran (+ pour zoomer, - pour dézoomer, 1 pour revenir à la taille d'origine)
-   glScalef(facteurZoom, facteurZoom, facteurZoom);
+	// Affichage et positionnement du bâtiment central
+    glPushMatrix();
+
+	   // Translation de la voiture dans le plan (xOz)
+	   glTranslated(0.292109f,0.0f,0.249397f);
+
+	   // Grossir/réduire les éléments affichés à l'écran (+ pour zoomer, - pour dézoomer, 1 pour revenir à la taille d'origine)
+	   glScalef(0.125f, 0.125f, 0.125f);
    
-   // Affichage de la voiture
-   glColor3f(0,0,1);
+	   // Affichage de la voiture
+	   glColor3f(0,1,1);
 
-   objarray[0]->render();
+	   objarray[0]->render();
+   glPopMatrix();
 
+   ///////////////////////////
+
+   	// Affichage et positionnement du bâtiment BG
+    glPushMatrix();
+
+	   // Translation de la voiture dans le plan (xOz)
+	   glTranslated(0.111052f,0.0f,0.087257f);
+
+	   // Grossir/réduire les éléments affichés à l'écran (+ pour zoomer, - pour dézoomer, 1 pour revenir à la taille d'origine)
+	   glScalef(0.100f, 0.100f, 0.100f);
+   
+	   // Affichage de la voiture
+	   glColor3f(1,1,1);
+
+	   objarray[1]->render();
+   glPopMatrix();
+
+   ///////////////////////////
+
+	glPushMatrix();
+
+	   // Translation de la voiture dans le plan (xOz)
+	   glTranslated(xpos,0.0f,zpos);
+  
+	   // Rotation de la voiture dans le plan (xOz)
+	   glRotatef(yrot,0.0,1.0,0.0);
+
+	   // Grossir/réduire les éléments affichés à l'écran (+ pour zoomer, - pour dézoomer, 1 pour revenir à la taille d'origine)
+	   glScalef(facteurZoom, facteurZoom, facteurZoom);
+   
+	   // Affichage de la voiture
+	   glColor3f(0,0,1);
+
+	   objarray[1]->render();
+   glPopMatrix();
 }
 
