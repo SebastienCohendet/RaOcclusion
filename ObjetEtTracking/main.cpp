@@ -35,7 +35,7 @@ int main(int argc, char **argv)
 	// Pour débugger plus vite !
 	if (argc!=6) {
       cerr<<"Nombre d'arguments invalide"<<endl;
-      cerr<<"Ordre demandé : objet (triangulaire) .obj (in.avi|live) boardConfig.yml  intrinsicsLogitech.yml   size "<<endl;
+      cerr<<"Ordre demandé : CheminFichierObjets (triangulaire) .obj (in.avi|live) boardConfig.yml  intrinsicsLogitech.yml   size "<<endl;
       return false;
    }
 	

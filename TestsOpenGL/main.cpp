@@ -260,7 +260,7 @@ int main(int argc, char **argv)
 {
 	if (argc!=2) {
         std::cerr<<"Invalid number of arguments"<<std::endl;
-        std::cerr<<"Usage: (in.avi|live) boardConfig.yml  intrinsics.yml   size "<<std::endl;
+        std::cerr<<"Usage: ListeOjb (in.avi|live) boardConfig.yml  intrinsics.yml   size "<<std::endl;
         return false;
     }
     // We use the GLUT utility to initialize the window, to handle the input and to interact with the windows system
