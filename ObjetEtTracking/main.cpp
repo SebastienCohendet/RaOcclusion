@@ -52,9 +52,6 @@ int main(int argc, char **argv)
 	glutDisplayFunc(display);
 	glutIdleFunc(vIdle);
 	glutReshapeFunc (resize);
-   
-
-
 
 	// Prise en charge du clavier et souris 
 	//glutPassiveMotionFunc(mouseMovement); 
