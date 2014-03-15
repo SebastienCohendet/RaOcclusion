@@ -56,7 +56,7 @@ void FonctionsOpenGL::initialisation (std::string obj)
     // Passage en mode Projection 
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity(); // Initialisation de la matrice de projection à l'identité
-    gluPerspective(45.0f,(GLfloat)screen_width/(GLfloat)screen_height,0.5f,100000000.0f);     
+    gluPerspective(70.0f,(GLfloat)screen_width/(GLfloat)screen_height,0.5f,100000000.0f);     
 
 
 	//Initialisation et activation des lumières (utile)
@@ -116,7 +116,7 @@ void FonctionsOpenGL::resize (int p_width, int p_height)
 
 	glMatrixMode(GL_PROJECTION); // Transformation de la matrice
 	glLoadIdentity(); // On réinitialise la matrice de projection à l'identité
-	gluPerspective(45.0f,(GLfloat)screen_width/(GLfloat)screen_height,0.1f,1000.0f);
+	gluPerspective(70.0f,(GLfloat)screen_width/(GLfloat)screen_height,0.1f,1000.0f);
 
 	glutPostRedisplay (); // On re-rend la scène
 	TheGlWindowSize=Size(screen_width,screen_height); //on sauvegarde la taille de la fenêtre pour la suite
@@ -134,35 +134,39 @@ void FonctionsOpenGL::keyboard (int key, int x, int y) {
 
 	/* Gestion du zoom */
 	if (key==GLUT_KEY_PAGE_UP)
-		facteurZoom=facteurZoom*1.5f;
+		facteurZoom=facteurZoom*1.25f;
 	if (key==GLUT_KEY_PAGE_DOWN)
-		facteurZoom=facteurZoom/1.5f;
+		facteurZoom=facteurZoom/1.25f;
 
 	/* Flèches directionnelles */
 	if (key==GLUT_KEY_UP) //avancer
 	{
 		float yrotrad = (yrot / 180 * 3.141592654f);
-		zpos += TheMarkerSize/2 * cos(yrotrad);
-		xpos += TheMarkerSize/2 * sin(yrotrad);
+		zpos += TheMarkerSize/4 * cos(yrotrad);
+		xpos += TheMarkerSize/4 * sin(yrotrad);
 	}
 	if (key==GLUT_KEY_DOWN) //reculer
 	{
 		float yrotrad = (yrot / 180 * 3.141592654f);
-		zpos -= TheMarkerSize/2 * cos(yrotrad);
-		xpos -= TheMarkerSize/2 * sin(yrotrad);
+		zpos -= TheMarkerSize/4 * cos(yrotrad);
+		xpos -= TheMarkerSize/4 * sin(yrotrad);
 	}
     if (key==GLUT_KEY_LEFT) //tourner à gauche
     {
-		yrot += 20; 
+		yrot += 10; 
     }
     if (key==GLUT_KEY_RIGHT) //tourner à droite
     {
-		yrot -= 20; 
+		yrot -= 10; 
     }
 	
 	/* Reinitialiser position/taille voiture */
     if (key==GLUT_KEY_END)
     {
+		printf("facteurZoom: %f \n",facteurZoom);
+		printf("xpos: %d \n",xpos);
+		printf("zpos: %d \n",zpos);
+		printf("yrot: %d \n",yrot);
 		facteurZoom=0.125f;
 		xpos = 0, ypos = 0, zpos = 0, yrot = 0;
     }
@@ -339,6 +343,7 @@ void FonctionsOpenGL::displayVirtualWorld()
    
    // Affichage de la voiture
    glColor3f(0,0,1);
+
    objarray[0]->render();
 
 }
