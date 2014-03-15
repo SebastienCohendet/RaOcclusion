@@ -93,7 +93,7 @@ void FonctionsOpenGL::initialisation (std::string obj)
 	{
 		objarray[i] = new (object_type);
 		objarray[i]->objloader(obj);
-		objarray[i]->objdatadisplay();      
+		//objarray[i]->objdatadisplay();      
 	}
 
 }
@@ -199,7 +199,7 @@ void FonctionsOpenGL::display(void)
     glMatrixMode(GL_MODELVIEW); //Positionnement de la camera
     glLoadIdentity();
     glPushMatrix(); 
-
+	
     glMatrixMode(GL_PROJECTION);
     glPushMatrix();
 		glLoadIdentity();
@@ -265,7 +265,7 @@ void FonctionsOpenGL::display(void)
        
 			glPopMatrix();
 		}
-
+		
    glPopMatrix(); // from the GL PROJECTION
 
    glutSwapBuffers();
@@ -281,7 +281,7 @@ void FonctionsOpenGL::vIdle()
         TheVideoCapturer.grab();
         TheVideoCapturer.retrieve( TheInputImage);
         TheUndInputImage.create(TheInputImage.size(),CV_8UC3);
-        //by deafult, opencv works in BGR, so we must convert to RGB because OpenGL in windows preffer
+        //by default, opencv works in BGR, so we must convert to RGB because OpenGL in windows preffer
         cv::cvtColor(TheInputImage,TheInputImage,CV_BGR2RGB);
         //remove distorion in image
         cv::undistort(TheInputImage,TheUndInputImage, TheCameraParams.CameraMatrix,TheCameraParams.Distorsion);
