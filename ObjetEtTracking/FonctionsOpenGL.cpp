@@ -27,6 +27,7 @@ FonctionsOpenGL::FonctionsOpenGL(string TheInputVideo, string TheBoardConfigFile
 		cerr<<"Impossible de lire la video"<<endl;
 	}
     
+	//Changement de résolution de la caméra (passage en 720p)
 	TheVideoCapturer.set(3,1280);
 	TheVideoCapturer.set(4,720);
 
@@ -59,7 +60,6 @@ void FonctionsOpenGL::initialisation (std::string objs)
     // Passage en mode Projection 
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity(); // Initialisation de la matrice de projection à l'identité
-    gluPerspective(70.0f,(GLfloat)screen_width/(GLfloat)screen_height,0.5f,100000000.0f);     
 
 
 	//Initialisation et activation des lumières (utile)
@@ -128,7 +128,6 @@ void FonctionsOpenGL::resize (int p_width, int p_height)
 
 	glMatrixMode(GL_PROJECTION); // Transformation de la matrice
 	glLoadIdentity(); // On réinitialise la matrice de projection à l'identité
-	gluPerspective(70.0f,(GLfloat)screen_width/(GLfloat)screen_height,0.1f,1000.0f);
 
 	glutPostRedisplay (); // On re-rend la scène
 	TheGlWindowSize=Size(screen_width,screen_height); //on sauvegarde la taille de la fenêtre pour la suite
@@ -269,13 +268,13 @@ void FonctionsOpenGL::display(void)
 				glTranslatef(0, TheMarkerSize/2,0); // on est exactement sur le plan des markers
        
 				// Desactivation du color buffer et "dessiner" le monde virtuel caché = objet réel virtualisé
-				glColorMask(GL_FALSE,GL_FALSE,GL_FALSE,GL_FALSE);
+				//glColorMask(GL_FALSE,GL_FALSE,GL_FALSE,GL_FALSE);
 				glPushMatrix();
 				displayVirtualHiddenWorld();
 				glPopMatrix();
    
 				// Reactivation du color buffer et dessiner l'objet virtuel
-				glColorMask(GL_TRUE,GL_TRUE,GL_TRUE,GL_TRUE);
+				//glColorMask(GL_TRUE,GL_TRUE,GL_TRUE,GL_TRUE);
 				glPushMatrix();
 				displayVirtualWorld();
 				glPopMatrix();
