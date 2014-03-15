@@ -18,3 +18,15 @@ A noter qu'à la génération, une dll sera requise dans le dossier d'exécution
 
 L'ensemble du projet est censé fonctionner sous d'autres OS, à condition que les librairies OpenCv et Aruco soient disponibles, lors de la compilation des fichiers sources.
 
+
+=======
+
+Fichier config des objs :
+
+Le fichier des objs (attendu dans les arguments du main) doit contenir un obj (=chemin complet de l'obj) par ligne.
+Exemple de contenu de ce fichier : 
+C:\user\obj1
+C:\user\obj2
+C:\user\obj3
+
+======
