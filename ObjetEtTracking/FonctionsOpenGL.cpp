@@ -26,7 +26,10 @@ FonctionsOpenGL::FonctionsOpenGL(string TheInputVideo, string TheBoardConfigFile
 	{
 		cerr<<"Impossible de lire la video"<<endl;
 	}
-       
+    
+	TheVideoCapturer.set(3,1280);
+	TheVideoCapturer.set(4,720);
+
 	//Lecture de la première image
 	TheVideoCapturer>>TheInputImage;
 	//Lit les paramètres de la caméra (passés en argument)
@@ -268,7 +271,7 @@ void FonctionsOpenGL::display(void)
 				// Desactivation du color buffer et "dessiner" le monde virtuel caché = objet réel virtualisé
 				glColorMask(GL_FALSE,GL_FALSE,GL_FALSE,GL_FALSE);
 				glPushMatrix();
-				// displayVirtualHiddenWorld();
+				displayVirtualHiddenWorld();
 				glPopMatrix();
    
 				// Reactivation du color buffer et dessiner l'objet virtuel
@@ -327,21 +330,6 @@ void FonctionsOpenGL::displayVirtualHiddenWorld()
    float ratio = 0.65f;
    glScalef(ratio, ratio, ratio);
    
-   // Dessin du cube
-   glutSolidCube(TheMarkerSize*2);
-}
-
-void FonctionsOpenGL::displayVirtualWorld()
-{
-    // Affichage objet
-    if (objarray[0]->id_texture!=-1)
-    {
-		glBindTexture(GL_TEXTURE_2D, objarray[0]->id_texture); // On active les textures
-		glEnable(GL_TEXTURE_2D); // Texture mapping ok
-    }
-    else
-		glDisable(GL_TEXTURE_2D); // Texture mapping OFF
-
 	// Affichage et positionnement du bâtiment central
     glPushMatrix();
 
@@ -376,6 +364,35 @@ void FonctionsOpenGL::displayVirtualWorld()
 
    ///////////////////////////
 
+   	// Affichage et positionnement du bâtiment BD
+    glPushMatrix();
+
+	   // Translation de la voiture dans le plan (xOz)
+	   glTranslated(0.078444f,0.0f,0.413195f);
+
+	   // Grossir/réduire les éléments affichés à l'écran (+ pour zoomer, - pour dézoomer, 1 pour revenir à la taille d'origine)
+	   glScalef(0.064f, 0.064f, 0.064f);
+   
+	   // Affichage de la voiture
+	   glColor3f(1,1,1);
+
+	   objarray[2]->render();
+   glPopMatrix();
+
+   ///////////////////////////
+}
+
+void FonctionsOpenGL::displayVirtualWorld()
+{
+    // Affichage objet
+    if (objarray[0]->id_texture!=-1)
+    {
+		glBindTexture(GL_TEXTURE_2D, objarray[0]->id_texture); // On active les textures
+		glEnable(GL_TEXTURE_2D); // Texture mapping ok
+    }
+    else
+		glDisable(GL_TEXTURE_2D); // Texture mapping OFF
+
 	glPushMatrix();
 
 	   // Translation de la voiture dans le plan (xOz)
@@ -388,9 +405,9 @@ void FonctionsOpenGL::displayVirtualWorld()
 	   glScalef(facteurZoom, facteurZoom, facteurZoom);
    
 	   // Affichage de la voiture
-	   glColor3f(0,0,1);
+	   glColor3f(1,0,0);
 
-	   objarray[1]->render();
+	   objarray[5]->render();
    glPopMatrix();
 }
 
