@@ -268,13 +268,13 @@ void FonctionsOpenGL::display(void)
 				glTranslatef(0, TheMarkerSize/2,0); // on est exactement sur le plan des markers
        
 				// Desactivation du color buffer et "dessiner" le monde virtuel caché = objet réel virtualisé
-				//glColorMask(GL_FALSE,GL_FALSE,GL_FALSE,GL_FALSE);
+				glColorMask(GL_FALSE,GL_FALSE,GL_FALSE,GL_FALSE);
 				glPushMatrix();
 				displayVirtualHiddenWorld();
 				glPopMatrix();
    
 				// Reactivation du color buffer et dessiner l'objet virtuel
-				//glColorMask(GL_TRUE,GL_TRUE,GL_TRUE,GL_TRUE);
+				glColorMask(GL_TRUE,GL_TRUE,GL_TRUE,GL_TRUE);
 				glPushMatrix();
 				displayVirtualWorld();
 				glPopMatrix();
@@ -313,7 +313,6 @@ void FonctionsOpenGL::vIdle()
 }
 
 
-
 int FonctionsOpenGL::getWidth() {
 	return screen_width;
 }
@@ -323,68 +322,11 @@ int FonctionsOpenGL::getHeight() {
 	return screen_height;
 }
 
-void FonctionsOpenGL::displayVirtualHiddenWorld()
-{
-   // Modifier dimension monde virtuel caché
-   float ratio = 0.65f;
-   glScalef(ratio, ratio, ratio);
-   
-	// Affichage et positionnement du bâtiment central
-    glPushMatrix();
-
-	   // Translation de la voiture dans le plan (xOz)
-	   glTranslated(0.292109f,0.0f,0.249397f);
-
-	   // Grossir/réduire les éléments affichés à l'écran (+ pour zoomer, - pour dézoomer, 1 pour revenir à la taille d'origine)
-	   glScalef(0.125f, 0.125f, 0.125f);
-   
-	   // Affichage de la voiture
-	   glColor3f(0,1,1);
-
-	   objarray[0]->render();
-   glPopMatrix();
-
-   ///////////////////////////
-
-   	// Affichage et positionnement du bâtiment BG
-    glPushMatrix();
-
-	   // Translation de la voiture dans le plan (xOz)
-	   glTranslated(0.111052f,0.0f,0.087257f);
-
-	   // Grossir/réduire les éléments affichés à l'écran (+ pour zoomer, - pour dézoomer, 1 pour revenir à la taille d'origine)
-	   glScalef(0.100f, 0.100f, 0.100f);
-   
-	   // Affichage de la voiture
-	   glColor3f(1,1,1);
-
-	   objarray[1]->render();
-   glPopMatrix();
-
-   ///////////////////////////
-
-   	// Affichage et positionnement du bâtiment BD
-    glPushMatrix();
-
-	   // Translation de la voiture dans le plan (xOz)
-	   glTranslated(0.078444f,0.0f,0.413195f);
-
-	   // Grossir/réduire les éléments affichés à l'écran (+ pour zoomer, - pour dézoomer, 1 pour revenir à la taille d'origine)
-	   glScalef(0.064f, 0.064f, 0.064f);
-   
-	   // Affichage de la voiture
-	   glColor3f(1,1,1);
-
-	   objarray[2]->render();
-   glPopMatrix();
-
-   ///////////////////////////
-}
 
 void FonctionsOpenGL::displayVirtualWorld()
 {
     // Affichage objet
-    if (objarray[0]->id_texture!=-1)
+    if (objarray[5]->id_texture!=-1)
     {
 		glBindTexture(GL_TEXTURE_2D, objarray[0]->id_texture); // On active les textures
 		glEnable(GL_TEXTURE_2D); // Texture mapping ok
@@ -404,9 +346,51 @@ void FonctionsOpenGL::displayVirtualWorld()
 	   glScalef(facteurZoom, facteurZoom, facteurZoom);
    
 	   // Affichage de la voiture
-	   glColor3f(1,0,0);
+	   glColor3f(0,0,0);
 
 	   objarray[5]->render();
+   glPopMatrix();
+}
+
+
+
+void FonctionsOpenGL::displayVirtualHiddenWorld()
+{
+   	glColor3f(1,1,1);
+
+	// Affichage et positionnement du bâtiment central
+    glPushMatrix();
+	   glTranslated(0.305250f,0.0f,0.259000f);
+	   glScalef(0.125f, 0.125f, 0.125f);
+	   objarray[0]->render();
+   glPopMatrix();
+
+   	// Affichage et positionnement du bâtiment BG
+    glPushMatrix();
+	   glTranslated(0.133282f,0.0f,0.105532f);
+	   glScalef(0.100f, 0.100f, 0.100f);
+	   objarray[1]->render();
+   glPopMatrix();
+
+   	// Affichage et positionnement du bâtiment BD
+    glPushMatrix();
+	   glTranslated(0.119126f,0.0f,0.382850f);
+	   glScalef(0.080f, 0.080f, 0.080f);
+	   objarray[2]->render();
+   glPopMatrix();
+      
+   	// Affichage et positionnement du bâtiment HG
+    glPushMatrix();
+	   glTranslated(0.476111f,0.0f,0.139416f);
+	   glScalef(0.1f, 0.1f, 0.1f);
+	   objarray[3]->render();
+   glPopMatrix();
+
+    // Affichage et positionnement du bâtiment HD
+    glPushMatrix();
+	   glTranslated(0.492678f,0.0f,0.420678f);
+	   glScalef(0.112f, 0.112f, 0.112f);
+	   objarray[4]->render();
    glPopMatrix();
 }
 
