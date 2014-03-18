@@ -109,8 +109,11 @@ public:
                 else
                     inputType = VIDEO_FILE;
             }
-            if (inputType == CAMERA)
+            if (inputType == CAMERA) {
                 inputCapture.open(cameraID);
+				inputCapture.set(3,1280);
+				inputCapture.set(4,720);
+			}
             if (inputType == VIDEO_FILE)
                 inputCapture.open(input);
             if (inputType != IMAGE_LIST && !inputCapture.isOpened())
