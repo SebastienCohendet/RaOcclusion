@@ -11,6 +11,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ObjetEtTracking", "ObjetEtT
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Essai static utils", "Essai static utils\Essai static utils.vcxproj", "{B4E6BCEA-F2EE-4FC2-955D-AC56F8337120}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Calibration", "Calibration\Calibration.vcxproj", "{B8A7953A-8BCC-44FE-B65D-912F50232D37}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|ARM = Debug|ARM
@@ -83,6 +85,17 @@ Global
 		{B4E6BCEA-F2EE-4FC2-955D-AC56F8337120}.Release|Win32.ActiveCfg = Release|x64
 		{B4E6BCEA-F2EE-4FC2-955D-AC56F8337120}.Release|x64.ActiveCfg = Release|x64
 		{B4E6BCEA-F2EE-4FC2-955D-AC56F8337120}.Release|x64.Build.0 = Release|x64
+		{B8A7953A-8BCC-44FE-B65D-912F50232D37}.Debug|ARM.ActiveCfg = Debug|x64
+		{B8A7953A-8BCC-44FE-B65D-912F50232D37}.Debug|Mixed Platforms.ActiveCfg = Debug|x64
+		{B8A7953A-8BCC-44FE-B65D-912F50232D37}.Debug|Mixed Platforms.Build.0 = Debug|x64
+		{B8A7953A-8BCC-44FE-B65D-912F50232D37}.Debug|Win32.ActiveCfg = Debug|x64
+		{B8A7953A-8BCC-44FE-B65D-912F50232D37}.Debug|x64.ActiveCfg = Debug|x64
+		{B8A7953A-8BCC-44FE-B65D-912F50232D37}.Debug|x64.Build.0 = Debug|x64
+		{B8A7953A-8BCC-44FE-B65D-912F50232D37}.Release|ARM.ActiveCfg = Release|x64
+		{B8A7953A-8BCC-44FE-B65D-912F50232D37}.Release|Mixed Platforms.ActiveCfg = Release|x64
+		{B8A7953A-8BCC-44FE-B65D-912F50232D37}.Release|Mixed Platforms.Build.0 = Release|x64
+		{B8A7953A-8BCC-44FE-B65D-912F50232D37}.Release|Win32.ActiveCfg = Release|x64
+		{B8A7953A-8BCC-44FE-B65D-912F50232D37}.Release|x64.ActiveCfg = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
