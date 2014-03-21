@@ -242,7 +242,7 @@ void FonctionsOpenGL::display(void)
 		double modelview_matrix[16];
 
 		// Afficher un cube au dessus de chaque marker
-		/* 
+		/*
 		for (unsigned int m=0;m<TheMarkers.size();m++)
 		{
 			TheMarkers[m].glGetModelViewMatrix(modelview_matrix);
@@ -252,8 +252,8 @@ void FonctionsOpenGL::display(void)
 			glColor3f(1,0.4,0.4);
 			glTranslatef(0, TheMarkerSize/2,0);
 			glutWireCube( TheMarkerSize );
-		}
-		*/
+		}*/
+		
 
 		//Si la planche est detectee avec assez de probabilites, on affiche l'objet
 		if (TheBoardDetected.second>0.1) {
@@ -265,20 +265,15 @@ void FonctionsOpenGL::display(void)
 				glLoadIdentity();
 				glLoadMatrixd(modelview_matrix);
 				glColor3f(0,1,0);
-				glTranslatef(0, TheMarkerSize/2,0); // on est exactement sur le plan des markers
-       
+
 				// Desactivation du color buffer et "dessiner" le monde virtuel caché = objet réel virtualisé
 				glColorMask(GL_FALSE,GL_FALSE,GL_FALSE,GL_FALSE);
-				glPushMatrix();
 				displayVirtualHiddenWorld();
-				glPopMatrix();
-   
+
 				// Reactivation du color buffer et dessiner l'objet virtuel
 				glColorMask(GL_TRUE,GL_TRUE,GL_TRUE,GL_TRUE);
-				glPushMatrix();
 				displayVirtualWorld();
-				glPopMatrix();
-       
+   
 			glPopMatrix();
 		}
 		
@@ -357,39 +352,39 @@ void FonctionsOpenGL::displayVirtualWorld()
 void FonctionsOpenGL::displayVirtualHiddenWorld()
 {
    	glColor3f(1,1,1);
-
+	
 	// Affichage et positionnement du bâtiment central
     glPushMatrix();
-	   glTranslated(0.305250f,0.0f,0.259000f);
-	   glScalef(0.125f, 0.125f, 0.125f);
+	   glTranslated(0.299748f,0.0f,0.259506f);
+	   glScalef(0.1f, 0.1f, 0.1f);
 	   objarray[0]->render();
    glPopMatrix();
 
    	// Affichage et positionnement du bâtiment BG
     glPushMatrix();
-	   glTranslated(0.133282f,0.0f,0.105532f);
+	   glTranslated(0.120250f,0.0f,0.0925f);
 	   glScalef(0.100f, 0.100f, 0.100f);
 	   objarray[1]->render();
    glPopMatrix();
 
    	// Affichage et positionnement du bâtiment BD
     glPushMatrix();
-	   glTranslated(0.119126f,0.0f,0.382850f);
+	   glTranslated(0.11150f,0.0f,0.407f);
 	   glScalef(0.080f, 0.080f, 0.080f);
 	   objarray[2]->render();
    glPopMatrix();
       
    	// Affichage et positionnement du bâtiment HG
     glPushMatrix();
-	   glTranslated(0.476111f,0.0f,0.139416f);
+	   glTranslated(0.480503f,0.0f,0.122932f);
 	   glScalef(0.1f, 0.1f, 0.1f);
 	   objarray[3]->render();
    glPopMatrix();
 
     // Affichage et positionnement du bâtiment HD
     glPushMatrix();
-	   glTranslated(0.492678f,0.0f,0.420678f);
-	   glScalef(0.112f, 0.112f, 0.112f);
+	   glTranslated(0.4995f,0.0f,0.42975f);
+	   glScalef(0.105f, 0.105f, 0.105f);
 	   objarray[4]->render();
    glPopMatrix();
 }
