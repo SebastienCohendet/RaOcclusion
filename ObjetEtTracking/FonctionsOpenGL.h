@@ -30,7 +30,7 @@ class FonctionsOpenGL{
 		/** Position de la voiture pour son deplacement dans la ville */
 		float xpos, ypos, zpos, yrot;
 		/** Contient les obj a charger/afficher */
-		object_type *objarray[6];   
+		object_type *objarray[7];   
 		/** Dimensions de la fenetre */
 		int screen_width,screen_height;
 		/** Variables necessaires a la detection des marqueurs par Aruco */
@@ -49,6 +49,8 @@ class FonctionsOpenGL{
 		pair<Board,float> TheBoardDetected; /**< la planche et ses probas */
 		/** facteur de zoom pour la taille de l'Objet, modifiable au clavier */
 		float facteurZoom; 
+		bool afficheSol;
+		bool afficheBatiment;
 
 	public:
 		FonctionsOpenGL(string TheInputVideo, string TheBoardConfigFile, string TheIntrinsicFile, float TheMarkerSize);

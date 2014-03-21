@@ -108,6 +108,9 @@ void FonctionsOpenGL::initialisation (std::string objs)
 
 	else cout << "Lecture impossible du fichier d'objets"; 
 
+	//Initialisation des booléens d'affiches du sol et des bâtiments
+	afficheBatiment=false;
+	afficheSol=false;
 }
 
 
@@ -140,6 +143,8 @@ void FonctionsOpenGL::resize (int p_width, int p_height)
  "Page précédente" pour dézoomer l'objet <br/>
  Flèches directionnelles pour déplacer la voiture <br/>
  "Fin" pour réinitialiser la taille & la position de l'objet <br/>
+ "F1" pour afficher/masquer le sol (masqué par défaut) <br/>
+ "F2" pour afficher/masquer les bâtiments (masqués par défaut)
 */
 void FonctionsOpenGL::keyboard (int key, int x, int y) {
 
@@ -180,6 +185,18 @@ void FonctionsOpenGL::keyboard (int key, int x, int y) {
 		printf("yrot: %f\n",yrot);
 		facteurZoom=0.125f;
 		xpos = 0, ypos = 0, zpos = 0, yrot = 0;
+    }
+
+	/* Pour afficher le sol */
+	if (key==GLUT_KEY_F1)
+    {
+		afficheSol=!afficheSol;
+    }
+
+	/* Pour afficher les bâtiments */
+	if (key==GLUT_KEY_F2)
+    {
+		afficheBatiment=!afficheBatiment;
     }
 }
 
@@ -267,11 +284,15 @@ void FonctionsOpenGL::display(void)
 				glColor3f(0,1,0);
 
 				// Desactivation du color buffer et "dessiner" le monde virtuel caché = objet réel virtualisé
-				glColorMask(GL_FALSE,GL_FALSE,GL_FALSE,GL_FALSE);
+				if (!afficheBatiment)
+					glColorMask(GL_FALSE,GL_FALSE,GL_FALSE,GL_FALSE);
+
 				displayVirtualHiddenWorld();
 
 				// Reactivation du color buffer et dessiner l'objet virtuel
-				glColorMask(GL_TRUE,GL_TRUE,GL_TRUE,GL_TRUE);
+				if (!afficheBatiment)
+					glColorMask(GL_TRUE,GL_TRUE,GL_TRUE,GL_TRUE);
+
 				displayVirtualWorld();
    
 			glPopMatrix();
@@ -329,6 +350,25 @@ void FonctionsOpenGL::displayVirtualWorld()
     else
 		glDisable(GL_TEXTURE_2D); // Texture mapping OFF
 
+	if(afficheSol) {
+		glPushMatrix();
+
+		   glTranslated(0.294394,0.0f,0.259141);
+  
+		   // Rotation du sol dans le plan (xOz)
+		   glRotatef(-90.0f,0.0,1.0,0.0);
+
+		   // Taille du sol
+		   glScalef(0.0512, 0.0512, 0.0512);
+   
+		   // Affichage du sol
+		   glColor3f(0.73f,0.73f,0.73f);
+
+		   objarray[5]->render();
+
+	   glPopMatrix();
+	}
+
 	glPushMatrix();
 
 	   // Translation de la voiture dans le plan (xOz)
@@ -343,7 +383,7 @@ void FonctionsOpenGL::displayVirtualWorld()
 	   // Affichage de la voiture
 	   glColor3f(0,0,0);
 
-	   objarray[5]->render();
+	   objarray[6]->render();
    glPopMatrix();
 }
 
