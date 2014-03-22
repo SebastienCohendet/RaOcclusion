@@ -1,10 +1,10 @@
-#include "objloader.h"
+ï»¿#include "objloader.h"
 
 using namespace std;
 
 void object_type::render()
 {
-    glBegin(GL_TRIANGLES); // glBegin and glEnd délimitent les sommets définissant la forme primitive (Triangles ici)
+    glBegin(GL_TRIANGLES); // glBegin and glEnd dÃ©limitent les sommets dÃ©finissant la forme primitive (Triangles ici)
 
     for (int j=0;j<polygons_qty;j++)
     {
@@ -13,7 +13,7 @@ void object_type::render()
                 vertex[ polygon[j].v[0] - 1].y,
                 vertex[ polygon[j].v[0] - 1].z);
 
-        //----------------- Deuxième sommet -----------------
+        //----------------- DeuxiÃ¨me sommet -----------------
         glNormal3f( normcoord[ polygon[j].n[1] - 1 ].i,
                 normcoord[ polygon[j].n[1] - 1 ].j,
                 normcoord[ polygon[j].n[1] - 1 ].k);
@@ -25,7 +25,7 @@ void object_type::render()
                 vertex[ polygon[j].v[1] - 1].y,
                 vertex[ polygon[j].v[1] - 1].z);
 
-        //----------------- Troisième sommet -----------------
+        //----------------- TroisiÃ¨me sommet -----------------
         glNormal3f( normcoord[ polygon[j].n[2] - 1 ].i,
                 normcoord[ polygon[j].n[2] - 1 ].j,
                 normcoord[ polygon[j].n[2] - 1 ].k);
@@ -87,7 +87,7 @@ int object_type::objloader(string p_filename)
 	char string[256];
 	FILE *l_file; // pointeur vers le fichier
 
-	char l_char; // variable contenant le caractère lu
+	char l_char; // variable contenant le caractÃ¨re lu
 
 	if ((l_file=fopen (p_filename.c_str(), "rt"))== NULL) return 0; //ouvre le fichier
 
@@ -118,14 +118,14 @@ int object_type::objloader(string p_filename)
 				  break;
 			}  // fin switch
 			break;
-		case 'f': //correspond à une face => le format est "f 1/1/1 2/2/2 3/3/3"
+		case 'f': //correspond Ã  une face => le format est "f 1/1/1 2/2/2 3/3/3"
 			for (int i=0;i<3;i++) //pour chaque sommet du polygone (triangle)
 			{
-				 fscanf(l_file,"%c",&l_char); //ignore caractère espace 
+				 fscanf(l_file,"%c",&l_char); //ignore caractÃ¨re espace 
 				 fscanf(l_file,"%d",&polygon[ipolygon].v[i]); //lire sommet
-				 fscanf(l_file,"%c",&l_char); //ignore caractère espace 
+				 fscanf(l_file,"%c",&l_char); //ignore caractÃ¨re espace 
 				 fscanf(l_file,"%d",&polygon[ipolygon].t[i]); //lire "textur coord"
-				 fscanf(l_file,"%c",&l_char); //ignore caractère espace
+				 fscanf(l_file,"%c",&l_char); //ignore caractÃ¨re espace
 				 fscanf(l_file,"%d",&polygon[ipolygon].n[i]); //lire normal
 			}
 			ipolygon++;

@@ -1,10 +1,10 @@
-#include "objloader.h"
+ï»¿#include "objloader.h"
 #include "fonctionsOpenGL.h"
 
-// Création instance pour affichage OpenGL
+// CrÃ©ation instance pour affichage OpenGL
 FonctionsOpenGL * openGL; 
 
-// Redéfinition des méthodes pour permettre à GlutDisplayFunc d'appeler les méthodes de openGL
+// RedÃ©finition des mÃ©thodes pour permettre Ã  GlutDisplayFunc d'appeler les mÃ©thodes de openGL
 void resize (int p_width, int p_height)
 {
 	openGL->resize(p_width, p_height);
@@ -27,23 +27,23 @@ void vIdle()
 }
 
 /** La fonction main.
-* @param argv : listing des paramètres nécessaire : l'obj à charger, la vidéo ou live, la configuration de la planche, les données de corrections de déformations de la caméra et la taille des marqueurs (en m)
+* @param argv : listing des paramÃ¨tres nÃ©cessaire : l'obj Ã  charger, la vidÃ©o ou live, la configuration de la planche, les donnÃ©es de corrections de dÃ©formations de la camÃ©ra et la taille des marqueurs (en m)
 *
 */
 int main(int argc, char **argv)
 {
-	// Pour débugger plus vite !
+	// Pour dÃ©bugger plus vite !
 	if (argc!=6) {
       cerr<<"Nombre d'arguments invalide"<<endl;
-      cerr<<"Ordre demandé : CheminFichierObjets (triangulaire) .obj (in.avi|live) boardConfig.yml  intrinsicsLogitech.yml   size "<<endl;
+      cerr<<"Ordre demandÃ© : CheminFichierObjets (triangulaire) .obj (in.avi|live) boardConfig.yml  intrinsicsLogitech.yml   size "<<endl;
       return false;
    }
 	
 
-	// initialisation de l'instance avec les arguments passés à la fonction main
+	// initialisation de l'instance avec les arguments passÃ©s Ã  la fonction main
 	openGL = new FonctionsOpenGL(argv[2],argv[3],argv[4],atof(argv[5]));
 
-	// On utilise GLUT pour charger la fenêtre, gérer les entrées (clavier/souris) et interraction avec la fenêtre
+	// On utilise GLUT pour charger la fenÃªtre, gÃ©rer les entrÃ©es (clavier/souris) et interraction avec la fenÃªtre
 	glutInit(&argc, argv);    
 	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH);
 	glutInitWindowSize(openGL->getWidth(),openGL->getHeight());    
