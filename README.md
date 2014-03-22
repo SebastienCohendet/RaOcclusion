@@ -1,7 +1,7 @@
 RaOcclusion
 ===========
 
-Le but de ce projet, mené dans le cadre de nos études à Centrale Nantes, est d'appréhender l'ensemble des tenants et aboutissants de la réalité augmentée. Cela passera par la réalisation d'une maquette carton/lego d'une ville (par exemple) qui, une fois filmée, sera agrémenter d'élements se déplaçant dans cette ville, en prenant en compte l'occlusion.
+Le but de ce projet, mené dans le cadre de nos études à Centrale Nantes, est d'appréhender l'ensemble des tenants et aboutissants de la réalité augmentée. Cela passera par la réalisation d'une maquette carton/lego d'une ville (par exemple) qui, une fois filmée, sera agrémentée d'élements se déplaçant dans cette ville, en prenant en compte l'occlusion.
 
 Le projet se base sur les librairies OpenCV et Aruco et est développé sous Visual Studio 2012, à des fins de compatibilités plus aisées avec OpenCv (version déjà compilée pour VS).
 
