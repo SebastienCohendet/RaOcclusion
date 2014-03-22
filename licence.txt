@@ -1,0 +1,1 @@
+RaOcclusion est un projet réalisé pour l'école Centrale Nantes, projet d'informatique de 3ème année, en binôme, sous licence CeCILL.
