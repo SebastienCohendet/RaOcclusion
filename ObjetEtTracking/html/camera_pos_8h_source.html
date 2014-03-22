@@ -1,0 +1,158 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.8.6"/>
+<title>ObjetEtTracking:  Fichier source de cameraPos.h</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(document).ready(function() { searchBox.OnSelectItem(0); });
+</script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td style="padding-left: 0.5em;">
+   <div id="projectname">ObjetEtTracking
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- GÃ©nÃ©rÃ© par Doxygen 1.8.6 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search",false,'Recherche');
+</script>
+  <div id="navrow1" class="tabs">
+    <ul class="tablist">
+      <li><a href="index.html"><span>Page&#160;principale</span></a></li>
+      <li><a href="annotated.html"><span>Classes</span></a></li>
+      <li class="current"><a href="files.html"><span>Fichiers</span></a></li>
+      <li>
+        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <img id="MSearchSelect" src="search/mag_sel.png"
+               onmouseover="return searchBox.OnSearchSelectShow()"
+               onmouseout="return searchBox.OnSearchSelectHide()"
+               alt=""/>
+          <input type="text" id="MSearchField" value="Recherche" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><img id="MSearchCloseImg" border="0" src="search/close.png" alt=""/></a>
+          </span>
+        </div>
+      </li>
+    </ul>
+  </div>
+  <div id="navrow2" class="tabs2">
+    <ul class="tablist">
+      <li><a href="files.html"><span>Liste&#160;des&#160;fichiers</span></a></li>
+      <li><a href="globals.html"><span>Membres&#160;de&#160;fichier</span></a></li>
+    </ul>
+  </div>
+</div><!-- top -->
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>Tout</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Fichiers</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Fonctions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Macros</a></div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div class="header">
+  <div class="headertitle">
+<div class="title">cameraPos.h</div>  </div>
+</div><!--header-->
+<div class="contents">
+<a href="camera_pos_8h.html">Aller Ã  la documentation de ce fichier.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef _CAMERAPOS_</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#define _CAMERAPOS_</span></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor"></span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;opencv/cv.h&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;fstream&gt;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="keyword">using namespace </span>cv;</div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;</div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="comment">//Aruco</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#include &quot;aruco\aruco.h&quot;</span></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="keywordtype">void</span> <a class="code" href="camera_pos_8h.html#a9738ff00613ecb490dc793221d4602c4">axis</a>(<span class="keywordtype">float</span>); </div>
+<div class="line"><a name="l00028"></a><span class="lineno"><a class="line" href="camera_pos_8h.html#aefd05a06e0305800d3607b76b0450a98">   28</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="camera_pos_8h.html#aefd05a06e0305800d3607b76b0450a98">readIntrinsicFile</a>(<span class="keywordtype">string</span> TheIntrinsicFile,Mat &amp; TheIntriscCameraMatrix,Mat &amp;TheDistorsionCameraParams,Size size)</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;{</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    <span class="comment">// ouvre le fichier</span></div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    ifstream InFile(TheIntrinsicFile.c_str());</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    <span class="keywordflow">if</span> (!InFile) <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    <span class="keywordtype">char</span> line[1024];</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    InFile.getline(line,1024);   <span class="comment">// ne pas lire la premiere ligne (qui contient que des commentaires normalement)</span></div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    InFile.getline(line,1024); <span class="comment">// lire la ligne avec les infos pertinentes </span></div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    <span class="comment">// Transformation vers type stringstream </span></div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    stringstream InLine;</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    InLine&lt;&lt;line;</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    <span class="comment">// Créer les matrices</span></div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    TheDistorsionCameraParams.create(4,1,CV_32FC1);</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    TheIntriscCameraMatrix=Mat::eye(3,3,CV_32FC1);</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    </div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    <span class="comment">// Lire la matrice &quot;intrinsic&quot;</span></div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    InLine&gt;&gt;TheIntriscCameraMatrix.at&lt;<span class="keywordtype">float</span>&gt;(0,0);<span class="comment">//fx                              </span></div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    InLine&gt;&gt;TheIntriscCameraMatrix.at&lt;<span class="keywordtype">float</span>&gt;(1,1); <span class="comment">//fy                             </span></div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    InLine&gt;&gt;TheIntriscCameraMatrix.at&lt;<span class="keywordtype">float</span>&gt;(0,2); <span class="comment">//cx                              </span></div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    InLine&gt;&gt;TheIntriscCameraMatrix.at&lt;<span class="keywordtype">float</span>&gt;(1,2);<span class="comment">//cy</span></div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    <span class="comment">// Lire les paramètres de distorsion </span></div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    <span class="keywordflow">for</span>(<span class="keywordtype">int</span> i=0;i&lt;4;i++) InLine&gt;&gt;TheDistorsionCameraParams.at&lt;<span class="keywordtype">float</span>&gt;(i,0);</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    </div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    <span class="comment">// Lire la taille de la caméra</span></div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    <span class="keywordtype">float</span> width,height;</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    InLine&gt;&gt;width&gt;&gt;height;</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    <span class="comment">// Redimensionner les parametres de la caméra pour correspondre à la taille de l&#39;image</span></div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    <span class="keywordtype">float</span> AxFactor= float(size.width)/ width;</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    <span class="keywordtype">float</span> AyFactor= float(size.height)/ height;</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    TheIntriscCameraMatrix.at&lt;<span class="keywordtype">float</span>&gt;(0,0)*=AxFactor;</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    TheIntriscCameraMatrix.at&lt;<span class="keywordtype">float</span>&gt;(0,2)*=AxFactor;</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    TheIntriscCameraMatrix.at&lt;<span class="keywordtype">float</span>&gt;(1,1)*=AyFactor;</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    TheIntriscCameraMatrix.at&lt;<span class="keywordtype">float</span>&gt;(1,2)*=AyFactor;</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    <span class="comment">// pour le debug</span></div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;    <span class="comment">/*</span></div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;<span class="comment">    cout&lt;&lt;&quot;fx=&quot;&lt;&lt;TheIntriscCameraMatrix.at&lt;float&gt;(0,0)&lt;&lt;endl;</span></div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;<span class="comment">    cout&lt;&lt;&quot;fy=&quot;&lt;&lt;TheIntriscCameraMatrix.at&lt;float&gt;(1,1)&lt;&lt;endl;</span></div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;<span class="comment">    cout&lt;&lt;&quot;cx=&quot;&lt;&lt;TheIntriscCameraMatrix.at&lt;float&gt;(0,2)&lt;&lt;endl;</span></div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;<span class="comment">    cout&lt;&lt;&quot;cy=&quot;&lt;&lt;TheIntriscCameraMatrix.at&lt;float&gt;(1,2)&lt;&lt;endl;</span></div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;<span class="comment">    cout&lt;&lt;&quot;k1=&quot;&lt;&lt;TheDistorsionCameraParams.at&lt;float&gt;(0,0)&lt;&lt;endl;</span></div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;<span class="comment">    cout&lt;&lt;&quot;k2=&quot;&lt;&lt;TheDistorsionCameraParams.at&lt;float&gt;(1,0)&lt;&lt;endl;</span></div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;<span class="comment">    cout&lt;&lt;&quot;p1=&quot;&lt;&lt;TheDistorsionCameraParams.at&lt;float&gt;(2,0)&lt;&lt;endl;</span></div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;<span class="comment">    cout&lt;&lt;&quot;p2=&quot;&lt;&lt;TheDistorsionCameraParams.at&lt;float&gt;(3,0)&lt;&lt;endl;</span></div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;<span class="comment">    */</span></div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;} </div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="camera_pos_8h_html_a9738ff00613ecb490dc793221d4602c4"><div class="ttname"><a href="camera_pos_8h.html#a9738ff00613ecb490dc793221d4602c4">axis</a></div><div class="ttdeci">void axis(float)</div><div class="ttdoc">Afficher des axes dans le repère courant. </div><div class="ttdef"><b>Definition:</b> cameraPos.cpp:3</div></div>
+<div class="ttc" id="camera_pos_8h_html_aefd05a06e0305800d3607b76b0450a98"><div class="ttname"><a href="camera_pos_8h.html#aefd05a06e0305800d3607b76b0450a98">readIntrinsicFile</a></div><div class="ttdeci">bool readIntrinsicFile(string TheIntrinsicFile, Mat &amp;TheIntriscCameraMatrix, Mat &amp;TheDistorsionCameraParams, Size size)</div><div class="ttdoc">Lire les matrices &quot;intrinsics&quot; et &quot;distorsion&quot; depuis un fichier. </div><div class="ttdef"><b>Definition:</b> cameraPos.h:28</div></div>
+</div><!-- fragment --></div><!-- contents -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+GÃ©nÃ©rÃ© le Samedi 22 Mars 2014 20:01:57 pour ObjetEtTracking par &#160;<a href="http://www.doxygen.org/index.html">
+<img class="footer" src="doxygen.png" alt="doxygen"/>
+</a> 1.8.6
+</small></address>
+</body>
+</html>
