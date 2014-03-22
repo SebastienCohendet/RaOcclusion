@@ -29,4 +29,7 @@ C:\user\obj1
 C:\user\obj2
 C:\user\obj3
 
+Le 7ème obj sera l'objet déplaçable et pouvant changer de taille (une voiture par exemple).
+A noter que les autres objs sont placés précisément, dans le code, par des translations, rotations et mis à l'échelle un à un.
+
 ======
