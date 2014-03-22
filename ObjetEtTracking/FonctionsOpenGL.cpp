@@ -200,13 +200,6 @@ void FonctionsOpenGL::keyboard (int key, int x, int y) {
     }
 }
 
-/** Support de la souris.
- * Mouvement et clic. Pas utilisé pour le moment
-*/
-void FonctionsOpenGL::mouseMovement(int x, int y) {
-	
-}
-
 
 /** Génère l'image en cours 
  * SUBROUTINE display(void)
