@@ -416,7 +416,7 @@ void FonctionsOpenGL::displayVirtualHiddenWorld()
 
     // Affichage et positionnement du bâtiment HD
     glPushMatrix();
-	   glTranslated(0.4995f,0.0f,0.42975f);
+	   glTranslated(0.1995f,0.0f,0.42975f);
 	   glScalef(0.105f, 0.105f, 0.105f);
 	   objarray[4]->render();
    glPopMatrix();
